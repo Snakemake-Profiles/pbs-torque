@@ -1,9 +1,9 @@
 cluster: "pbs-submit.py --depend \"{dependencies}\""
 cluster-status: "pbs-status.py"
 jobscript: "pbs-jobscript.sh"
-cluster_delete: "qdel"
-cluster_hold: " -h"
-cluster_release: "qrls"
+cluster-delete: "qdel"
+cluster-hold: " -h"
+cluster-release: "qrls"
 jobs: 5000
 immediate-submit: true
 verbose: true
