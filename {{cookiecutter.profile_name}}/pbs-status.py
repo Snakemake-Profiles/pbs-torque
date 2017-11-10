@@ -21,5 +21,5 @@ try:
     else:
         print("running")
 
-except subprocess.CalledProcessError as e:
+except (subprocess.CalledProcessError, IndexError, KeyboardInterrupt) as e:
     print("failed")
