@@ -111,33 +111,29 @@ if args.V: eall = " -V"
 if args.w: wd = " -w " + args.w
 if args.W: add= " -W \"" + args.w + "\""
 
-if "params" in job_properties:
-	params = job_properties["params"]
-	nodes=""
-	ppn=""
-	mem=""
-	walltime=""
-	if "nodes" in params: nodes="nodes=" + str(params["nodes"])
-	if "threads" in job_properties:
-		ppn="ppn=" + str(job_properties["threads"])
-	if "threads" in params:
-		ppn="ppn=" + str(params["threads"])
-	if "ppn" in params:
-		ppn="ppn=" + str(params["ppn"])
-	if "ppn" and not nodes : nodes="nodes=1"
-	if "mem" in params: mem="mem=" + params["mem"]
-	if "walltime" in params: walltime="walltime=" + params["walltime"]
-	if nodes or ppn or mem or walltime: resourceparams = " -l \""
-	if nodes:
-		resourceparams = resourceparams + nodes
-		if nodes and ppn: resourceparams = resourceparams + ":" + ppn
-	if nodes and mem: resourceparams = resourceparams + ","
-	if mem: resourceparams = resourceparams + mem
-	if walltime and (nodes or mem): resourceparams = resourceparams + ","
-	if walltime: resourceparams = resourceparams + walltime
-	if nodes or mem or walltime: resourceparams = resourceparams + "\""
-	if "workdir" in params and not wd:
-		wd = " -w " + params["workdir"]
+nodes=""
+ppn=""
+mem=""
+walltime=""
+
+if "threads" in job_properties:
+    ppn = "ppn=" + str(job_properties["threads"])
+
+if "resources" in job_properties:
+    resources = job_properties["resources"]
+    if "nodes" in resources: nodes="nodes=" + str(resources["nodes"])
+    if ppn and not nodes : nodes="nodes=1"
+    if "mem" in resources: mem="mem=" + str(resources["mem"])
+    if "walltime" in resources: walltime="walltime=" + str(resources["walltime"])
+
+if nodes or ppn or mem or walltime: resourceparams = " -l \""
+if nodes: resourceparams = resourceparams + nodes
+if nodes and ppn: resourceparams = resourceparams + ":" + ppn
+if nodes and mem: resourceparams = resourceparams + ","
+if mem: resourceparams = resourceparams + mem
+if walltime and (nodes or mem): resourceparams = resourceparams + ","
+if walltime: resourceparams = resourceparams + walltime
+if nodes or mem or walltime: resourceparams = resourceparams + "\""
 
 cmd = "qsub {a}{A}{b}{c}{C}{d}{D}{e}{f}{h}{j}{l}{m}{M}{o}{p}{P}{q}{t}{u}{v}{V}{w}{W}{rp}{dep}{ex}".format(\
 	a=atime,A=acc_string,b=pbs_time,c=chkpt,C=pref,d=dd,D=rd,e=se,f=ft,h=hold,j=j,l=resource,m=mail,M=mailuser,\

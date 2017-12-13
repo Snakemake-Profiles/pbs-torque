@@ -1,10 +1,7 @@
 cluster: "pbs-submit.py --depend \"{dependencies}\""
 cluster-status: "pbs-status.py"
 jobscript: "pbs-jobscript.sh"
-cluster-delete: "qdel"
-cluster-hold: " -h"
-cluster-release: "qrls"
 jobs: 5000
-immediate-submit: true
+immediate-submit: {{cookiecutter.immediate_submit}}
 verbose: true
 notemp: true
