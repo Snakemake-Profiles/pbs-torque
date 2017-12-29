@@ -109,7 +109,7 @@ if args.u: user = " -u " + args.u
 if args.v: ev = " -v " + args.v
 if args.V: eall = " -V"
 if args.w: wd = " -w " + args.w
-if args.W: add= " -W \"" + args.w + "\""
+if args.W: add= " -W \"" + args.W + "\""
 
 nodes=""
 ppn=""
