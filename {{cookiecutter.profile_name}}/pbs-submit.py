@@ -60,7 +60,7 @@ j=""
 resource=""
 mail=""
 mailuser=""
-jn=""
+jname=""
 so=""
 priority=""
 proxy=""
@@ -100,6 +100,7 @@ if args.j: j = " -j " + args.j
 if args.l: resource = " -l " + args.l
 if args.m: mail = " -m " + args.m
 if args.M: mailuser = " -M " + args.M
+if args.N: jname = " -N " + args.N
 if args.o: so = " -o " + args.o
 if args.p: priority = " -p " + args.p
 if args.P: proxy = " -P " + args.P
@@ -135,7 +136,7 @@ if walltime and (nodes or mem): resourceparams = resourceparams + ","
 if walltime: resourceparams = resourceparams + walltime
 if nodes or mem or walltime: resourceparams = resourceparams + "\""
 
-cmd = "qsub {a}{A}{b}{c}{C}{d}{D}{e}{f}{h}{j}{l}{m}{M}{o}{p}{P}{q}{t}{u}{v}{V}{w}{W}{rp}{dep}{ex}".format(\
+cmd = "qsub {a}{A}{b}{c}{C}{d}{D}{e}{f}{h}{j}{l}{m}{M}{N}{o}{p}{P}{q}{t}{u}{v}{V}{w}{W}{rp}{dep}{ex}".format(\
 	a=atime,A=acc_string,b=pbs_time,c=chkpt,C=pref,d=dd,D=rd,e=se,f=ft,h=hold,j=j,l=resource,m=mail,M=mailuser,\
 	o=so,p=priority,P=proxy,q=q,t=ar,u=user,v=ev,V=eall,w=wd,W=add,rp=resourceparams,dep=depend,ex=extras)
 
