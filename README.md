@@ -6,8 +6,10 @@ This profile configures Snakemake to run on the [Torque Scheduler](http://www.ad
 
 ### Deploy profile
 
-To deploy this profile, change to your desired **working directory** and run
+To deploy this profile, run
 
+    mkdir -p ~/.config/snakemake
+    cd ~/.config/snakemake
     cookiecutter https://github.com/neilav/torque-pbs.git
 
 Then, you can run Snakemake with
