@@ -124,8 +124,26 @@ if "resources" in job_properties:
     resources = job_properties["resources"]
     if "nodes" in resources: nodes="nodes=" + str(resources["nodes"])
     if ppn and not nodes : nodes="nodes=1"
-    if "mem" in resources: mem="mem=" + str(resources["mem"])
-    if "walltime" in resources: walltime="walltime=" + str(resources["walltime"])
+
+    if "mem" in resources:
+        mem="mem=" + str(resources["mem_gb"])
+    elif "mem_gb" in resources:
+        mem="mem=" + str(resources["mem_gb"]) + "gb"
+    elif "mem_mb" in resources:
+        mem="mem=" + str(resources["mem_mb"]) + "mb"
+
+    if "walltime" in resources:
+        walltime="walltime=" + str(resources["walltime"])    
+    elif "walltime_min" in resources:
+        walltime="walltime=" + str(resources["walltime_min"] * 60)
+    elif "walltime_h" in resources:
+        walltime="walltime=" + str(resources["walltime_h"] * 60 * 60)
+    elif "time" in resources:
+        walltime="walltime=" + str(resources["time"])
+    elif "time_min" in resources:
+        walltime="walltime=" + str(resources["time_min"] * 60)
+    elif "time_h" in resources:
+        walltime="walltime=" + str(resources["time_h"] * 60 * 60
 
 if nodes or ppn or mem or walltime: resourceparams = " -l \""
 if nodes: resourceparams = resourceparams + nodes

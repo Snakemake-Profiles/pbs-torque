@@ -23,4 +23,8 @@ The following resources are supported by on a per-rule basis:
 
 **node** - set the ppn resource request (defaults to the thread declaration).  
 **mem** - set the memory resource request (bytes).  
-**walltime** - set the walltime resource (secs).  
+**mem_mb** - set the memory resource request (megabytes).  
+**mem_gb** - set the memory resource request (gigabytes).  
+**walltime** / **time** - set the walltime resource (secs).  
+**walltime_min** / **time_min** - set the walltime resource (mins).  
+**walltime_h** / **time_h** - set the walltime resource (hours).  
