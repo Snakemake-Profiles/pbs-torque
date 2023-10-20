@@ -2,19 +2,22 @@
 
 import sys
 import subprocess
-import xml.etree.cElementTree as ET
 
 jobid = sys.argv[1]
 
 try:
-    res = subprocess.run("qstat -f -x {}".format(jobid), check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    # ! do net query full information
+    qstat = subprocess.run("qstat {}".format(jobid), check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    res = qstat.stdout.decode()
 
-    xmldoc = ET.ElementTree(ET.fromstring(res.stdout.decode())).getroot()
-    job_state = xmldoc.findall('.//job_state')[0].text
-
-    if job_state == "C":
-        exit_status = xmldoc.findall('.//exit_status')[0].text
-        if exit_status == '0':
+    if "C" in res:
+        full = subprocess.run("qstat -f -x {}".format(jobid),
+                               check=True,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.STDOUT,
+                               shell=True)
+        full = full.stdout.decode(errors='ignore')
+        if "<exit_status>0</exit_status>" in full:
             print("success")
         else:
             print("failed")
